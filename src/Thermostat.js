@@ -1,17 +1,30 @@
 function Thermostat() {
   this.temperature = 20;
+  this.powerSavingMode = true;
 };
 
 Thermostat.prototype.increaseTemperature = function() {
-    this.temperature++;
+    if(this.powerSavingMode === true && this.temperature < 25) {
+      this.temperature++;
+    };
 };
 
 Thermostat.prototype.decreaseTemperature = function() {
-    this.temperature--;
+    if(this.temperature > 10 ) {
+      this.temperature--;
+    };
 };
 
 Thermostat.prototype.resetTemperature = function() {
   this.temperature = 20;
+};
+
+Thermostat.prototype.powerSaveToggle = function() {
+  if(this.powerSavingMode === true) {
+    this.powerSavingMode = false;
+  } else {
+    this.powerSavingMode = true;
+  };
 };
 
 // function Player() {

@@ -21,10 +21,43 @@ describe('Thermostat', function() {
       expect(thermostat.temperature).toEqual(19);
     });
 
-    it('can be resetted back to 20', function() {
+    it('can be reset back to 20', function() {
       thermostat.increaseTemperature();
       thermostat.resetTemperature();
       expect(thermostat.temperature).toEqual(20);
+    });
+
+    it('cannot be lower than 10', function() {
+      while(thermostat.temperature > 10) {
+        thermostat.decreaseTemperature();
+      };
+      thermostat.decreaseTemperature();
+      expect(thermostat.temperature).toEqual(10);
+    });
+  });
+
+  describe('power save mode', function() {
+    it('is on by default', function() {
+      expect(thermostat.powerSavingMode).toBe(true)
+    });
+
+    it('can be turned off when on', function() {
+      thermostat.powerSaveToggle()
+      expect(thermostat.powerSavingMode).toBe(false)
+    });
+
+    it('can be turned on when off', function() {
+      thermostat.powerSaveToggle()
+      thermostat.powerSaveToggle()
+      expect(thermostat.powerSavingMode).toBe(true)
+    });
+
+    it('has a maximum of 25', function() {
+      while(thermostat.temperature < 25) {
+        thermostat.increaseTemperature();
+      };
+      thermostat.increaseTemperature();
+      expect(thermostat.temperature).toEqual(25);
     });
   });
 });
