@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Thermostat</title>
+    <link rel="stylesheet" href="public/css/normalize.css">
+    <link rel="stylesheet" href="public/css/thermostat.css">
+</head>
+
+<body>
+    <h3>City Temperature:</h3>
+    <h6 class="temperature" id="city"></h6>&#8451
+    <h3>Thermostat Temperature:</h3>
+    <h6 class="temperature "id="thermostat"></h6>&#8451
+    <br />
+    <input class="button up" type="button" value="&#9651" />
+    <input class="button down" type="button" value="&#9661" />
+    <input class="button reset" type="button" value="&#8634" />
+    <br />
+    <label class="switch">
+        <input id="power_saving_mode" type="checkbox" class="switch-input" checked>
+        <span class="switch-label" data-on="On" data-off="Off"></span>
+        <span class="switch-handle"></span>
+    </label>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="src/thermostat.js"></script>
+    <script src="src/jqueryApp.js"></script>
+</body>
+
+</html>

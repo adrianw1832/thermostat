@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Thermostat</title>
+    <link rel="stylesheet" href="public/css/normalize.css">
+    <link rel="stylesheet" href="public/css/thermostat.css">
+</head>
+
+<body>
+    <h3>Temperature:</h3>
+    <h6 id="temperature"></h6>&#8451
+    <br />
+    <input class="button" id="increase_button" type="button" value="&#9651" />
+    <input class="button" id="decrease_button" type="button" value="&#9661" />
+    <input class="button" id="reset_button" type="button" value="&#8634" />
+    <br />
+    <label class="switch">
+        <input id="power_saving_mode" type="checkbox" class="switch-input" checked>
+        <span class="switch-label" data-on="On" data-off="Off"></span>
+        <span class="switch-handle"></span>
+    </label>
+    <script src="src/thermostat.js"></script>
+    <script src="src/application.js"></script>
+</body>
+
+</html>
