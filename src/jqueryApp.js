@@ -20,7 +20,7 @@ $(document).ready(function() {
   };
 
   var getThermostatTemperature = function() {
-    $.getJSON('http://127.0.0.1:9292/temperature/' + thermostat.temperature, function(remoteAPI) {
+    $.getJSON('http://127.0.0.1:9292/temperature/' + thermostat.defaultTemperature, function(remoteAPI) {
       $('#thermostat').html(remoteAPI.temperature);
       thermostat.temperature = remoteAPI.temperature;
       updateColour();
