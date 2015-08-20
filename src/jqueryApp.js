@@ -11,23 +11,51 @@ $(document).ready(function() {
     updateColour();
   }
 
-  var cityTemperature = function() {
+  var cityTemperature = function(cityName) {
+    $.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric',
+      function(APIResponse) {
+        $('.city.temp').html(Math.round(APIResponse.main.temp));
+        $('.city.name').html(APIResponse.name);
+      });
 
   };
 
+  $(document).keypress(function(enter) {
+    if(enter.which == 13) {
+      var cityName = $('.city.form').val();
+      cityTemperature(cityName);
+      $('.city.form').val('');
+      $('.city.tempsign').removeClass('hidden');
+      $('.city.info').stop().animate({ opacity: 0.75}, 'slow');
+      $('.city.form').stop().animate({ opacity: 0}, 'fast');
+    }
+  });
+
+  $('section').click(function() {
+    $('.city.form').stop().animate({ opacity: 0.75}, 'fast');
+    $('.city.info').stop().animate({ opacity: 0}, 'slow');
+  });
+
+  $('.buttons').hover(function() {
+    $(this).stop().animate({ opacity: 1 }, 'fast');
+  },
+  function() {
+    $(this).stop().animate({ opacity: 0.5 }, 'fast');
+  });
+
   update();
 
-  $('.button.up').click(function() {
+  $('.thermostat.up').click(function() {
     thermostat.increaseTemperature();
     update();
   });
 
-  $('.button.down').click(function() {
+  $('.thermostat.down').click(function() {
     thermostat.decreaseTemperature();
     update();
   });
 
-  $('.button.reset').click(function() {
+  $('.thermostat.reset').click(function() {
     thermostat.resetTemperature();
     update();
   });

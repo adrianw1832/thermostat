@@ -1,57 +1,65 @@
 html {
+  height: 100%;
   font-size: 50px;
-  background: url('images/london.gif') no-repeat center center fixed;
+  background: url('images/hongkong2.png') no-repeat center fixed;
   background-size: cover;
   color: white;
   text-align: center;
+  opacity: 0.75;
+  font-family: Inconsolata;
 }
 
 body {
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
+  position: relative;
+}
+
+section {
+  height: 33%;
 }
 
 h3 {
-  margin-bottom: 0.1em;
-}
-
-body #temperature {
   display: inline;
-  font-size: 75px;
+  position: relative;
+  top: 45%;
+  margin-left: 5px;
+  opacity: 0.75;
 }
 
-body .button {
+.tempsign {
+  margin-left: -30px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.city.form {
+  background-color: white;
+  color: black;
+  padding-left: 5px;
+  border-radius: 15px;
+  opacity: 0.75;
+}
+
+.buttons.thermostat {
   display: inline-block;
   width: 75px;
   height: 75px;
   border-radius: 25px;
   background-color: white;
+  opacity: 0.5;
 }
 
-body #increase_button {
+.thermostat.up {
   color: red;
 }
 
-body #decrease_button {
+.thermostat.down {
   color: green;
 }
 
-body #reset_button {
-  color: black;
-}
-
-.button.up {
-  color: red;
-}
-
-.button.down {
-  color: green;
-}
-
-.button.reset {
+.thermostat.reset {
   color: black;
 }
 
@@ -62,11 +70,12 @@ body #reset_button {
   width: 65px;
   height: 25px;
   margin-top: 10px;
-  margin-right: 10px;
+  margin-right: 25px;
   padding: 3px;
   background-color: white;
   border-radius: 18px;
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .switch-input {
@@ -107,7 +116,7 @@ body #reset_button {
 }
 
 .switch-input:checked ~ .switch-label {
-  background: #47a8d8;
+  background: green;
 }
 .switch-input:checked ~ .switch-label:before {
   opacity: 0;
