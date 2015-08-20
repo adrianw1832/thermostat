@@ -17,56 +17,78 @@ $(document).ready(function() {
         $('.city.temp').html(Math.round(APIResponse.main.temp));
         $('.city.name').html(APIResponse.name);
       });
+  };
 
+  var getThermostatTemperature = function() {
+    $.getJSON('http://127.0.0.1:9292/temperature/' + thermostat.temperature, function(remoteAPI) {
+      $('#thermostat').html(remoteAPI.temperature);
+      thermostat.temperature = remoteAPI.temperature;
+      updateColour();
+    });
+  };
+
+  var sendThermostatTemperature = function() {
+    $.post('http://127.0.0.1:9292/temperature', {current_temp: thermostat.temperature});
   };
 
   $(document).keypress(function(enter) {
-    if(enter.which == 13) {
+    if (enter.which == 13) {
       var cityName = $('.city.form').val();
       cityTemperature(cityName);
       $('.city.form').val('');
       $('.city.tempsign').removeClass('hidden');
-      $('.city.info').stop().animate({ opacity: 0.75}, 'slow');
-      $('.city.form').stop().animate({ opacity: 0}, 'fast');
+      $('.city.info').stop().animate({
+        opacity: 0.75
+      }, 'slow');
+      $('.city.form').stop().animate({
+        opacity: 0
+      }, 'fast');
     }
   });
 
   $('section').click(function() {
-    $('.city.form').stop().animate({ opacity: 0.75}, 'fast');
-    $('.city.info').stop().animate({ opacity: 0}, 'slow');
+    $('.city.form').stop().animate({
+      opacity: 0.75
+    }, 'fast');
+    $('.city.info').stop().animate({
+      opacity: 0
+    }, 'slow');
   });
 
   $('.buttons').hover(function() {
-    $(this).stop().animate({ opacity: 1 }, 'fast');
-  },
-  function() {
-    $(this).stop().animate({ opacity: 0.5 }, 'fast');
-  });
+      $(this).stop().animate({
+        opacity: 1
+      }, 'fast');
+    },
+    function() {
+      $(this).stop().animate({
+        opacity: 0.5
+      }, 'fast');
+    });
 
-  update();
+  getThermostatTemperature();
 
   $('.thermostat.up').click(function() {
     thermostat.increaseTemperature();
     update();
+    sendThermostatTemperature();
   });
 
   $('.thermostat.down').click(function() {
     thermostat.decreaseTemperature();
     update();
+    sendThermostatTemperature();
   });
 
   $('.thermostat.reset').click(function() {
     thermostat.resetTemperature();
     update();
+    sendThermostatTemperature();
   });
 
   $('.switch-input').click(function() {
     thermostat.powerSaveToggle();
     update();
+    sendThermostatTemperature();
   });
 });
-
-
-
-
-
