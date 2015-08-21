@@ -3,7 +3,7 @@ require 'json'
 
 class ThermostatAPI < Sinatra::Base
   enable :sessions
-  set :session_secret, 'secret'
+  set :session_secret, 'super secret'
 
   get '/temperature/:default' do
     session[:user_temp] ||= params[:default]
