@@ -12,11 +12,12 @@ $(document).ready(function() {
   }
 
   var cityTemperature = function(cityName) {
-    $.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric',
-      function(APIResponse) {
+    $.ajax({url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric',
+      success: function(APIResponse) {
         $('.city.temp').html(Math.round(APIResponse.main.temp));
         $('.city.name').html(APIResponse.name);
-      });
+      }
+    });
   };
 
   var getThermostatTemperature = function() {
@@ -35,7 +36,6 @@ $(document).ready(function() {
     if (enter.which == 13) {
       var cityName = $('.city.form').val();
       cityTemperature(cityName);
-      $('.city.form').val('');
       $('.city.tempsign').removeClass('hidden');
       $('.city.info').stop().animate({
         opacity: 0.75
@@ -47,6 +47,7 @@ $(document).ready(function() {
   });
 
   $('section').click(function() {
+    $('.city.form').val('');
     $('.city.form').stop().animate({
       opacity: 0.75
     }, 'fast');
