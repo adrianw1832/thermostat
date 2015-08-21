@@ -88,6 +88,7 @@ describe('Ajax', function() {
     $('.city.form').val('London');
     $('section').trigger({type: 'keypress', which: 13});
     $.ajax.calls.mostRecent().args[0].success(APIResponse);
+    expect($.ajax).toHaveBeenCalled();
     expect('.city.name').toContainText('London');
   });
 
@@ -107,16 +108,18 @@ describe('Ajax', function() {
     $('.city.form').val('London');
     $('.city.form').trigger({type: 'keypress', which: 13});
     $.ajax.calls.mostRecent().args[0].success(APIResponse);
+    expect($.ajax).toHaveBeenCalled();
     expect('.city.temp').toContainText('18');
   });
 
   it('can display the temperature3', function() {
     var APIResponse = {'main': {'temp': 18}};
-    spyOn($, 'ajax').and.callFake(function(fakejson) {
-      fakejson.success(APIResponse);
+    spyOn($, 'ajax').and.callFake(function(fakeajax) {
+      fakeajax.success(APIResponse);
     });
     $('.city.form').val('London');
     $('.city.form').trigger({type: 'keypress', which: 13});
+    expect($.ajax).toHaveBeenCalled();
     expect('.city.temp').toContainText('18');
   });
 
@@ -148,14 +151,17 @@ describe('Ajax', function() {
     jasmine.getFixtures().fixturesPath = '.';
     spyOn($, 'getJSON');
     loadFixtures('index2.html');
+    expect($.getJSON).toHaveBeenCalled();
     expect($.getJSON.calls.mostRecent().args[0]).toEqual('http://127.0.0.1:9292/temperature/' + thermostat.defaultTemperature);
   });
 
-  xit('displays the previous temperature', function() {
+  it('displays the previous temperature', function() {
     jasmine.getFixtures().fixturesPath = '.';
     var APIResponse = {temperature : 24};
     spyOn($, 'getJSON');
     loadFixtures('index2.html');
-    expect($.getJSON.calls.mostRecent().args[0]).toEqual('http://127.0.0.1:9292/temperature/' + thermostat.defaultTemperature);
+    expect($.getJSON).toHaveBeenCalled();
+    $.getJSON.calls.mostRecent().args[1](APIResponse);
+    expect('#thermostat').toContainText('24');
   });
 });
