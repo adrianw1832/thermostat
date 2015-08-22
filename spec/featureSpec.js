@@ -4,7 +4,6 @@ describe('Thermostat', function() {
   beforeEach(function() {
     jasmine.getFixtures().fixturesPath = '.';
     loadFixtures('index2.html');
-    $.holdReady(false);
     thermostat = new Thermostat();
   });
 
@@ -69,11 +68,6 @@ describe('Ajax', function() {
     jasmine.getFixtures().fixturesPath = '.';
     loadFixtures('index2.html');
     thermostat = new Thermostat();
-    jasmine.Ajax.install();
-  });
-
-  afterEach(function() {
-    jasmine.Ajax.uninstall();
   });
 
   it('will call the weather API', function() {
@@ -93,6 +87,7 @@ describe('Ajax', function() {
   });
 
   it('can display the temperature1', function() {
+    jasmine.Ajax.install();
     var APIResponse = {'main': {'temp': 18}};
     jasmine.Ajax.stubRequest('http://api.openweathermap.org/data/2.5/weather?q=London&units=metric').andReturn({
       success: $('.city.temp').html(Math.round(APIResponse.main.temp))
@@ -100,6 +95,7 @@ describe('Ajax', function() {
     $('.city.form').val('London');
     $('.city.form').trigger({type: 'keypress', which: 13});
     expect('.city.temp').toContainHtml('18');
+    jasmine.Ajax.uninstall();
   });
 
   it('can display the temperature2', function() {
@@ -107,6 +103,7 @@ describe('Ajax', function() {
     var APIResponse = {'main': {'temp': 18}};
     $('.city.form').val('London');
     $('.city.form').trigger({type: 'keypress', which: 13});
+    console.log($.ajax.calls.mostRecent());
     $.ajax.calls.mostRecent().args[0].success(APIResponse);
     expect($.ajax).toHaveBeenCalled();
     expect('.city.temp').toContainText('18');
@@ -126,22 +123,22 @@ describe('Ajax', function() {
   it("sends a post request of the temperature when user press increase", function() {
     spyOn($, 'ajax');
     $('.thermostat.up').click();
-    expect($.ajax.calls.mostRecent().args[0]['url']).toEqual("http://127.0.0.1:9292/temperature");
-    expect($.ajax.calls.mostRecent().args[0]['data']).toEqual({current_temp: thermostat.defaultTemperature + 1});
+    expect($.ajax.calls.mostRecent().args[0].url).toEqual("http://127.0.0.1:9292/temperature");
+    expect($.ajax.calls.mostRecent().args[0].data).toEqual({current_temp: thermostat.defaultTemperature + 1});
   });
 
   it("sends a post request of the temperature when user press decrease", function() {
     spyOn($, 'ajax');
     $('.thermostat.down').click();
-    expect($.ajax.calls.mostRecent().args[0]['url']).toEqual("http://127.0.0.1:9292/temperature");
-    expect($.ajax.calls.mostRecent().args[0]['data']).toEqual({current_temp: thermostat.defaultTemperature - 1});
+    expect($.ajax.calls.mostRecent().args[0].url).toEqual("http://127.0.0.1:9292/temperature");
+    expect($.ajax.calls.mostRecent().args[0].data).toEqual({current_temp: thermostat.defaultTemperature - 1});
   });
 
   it("sends a post request of the temperature when user press reset", function() {
     spyOn($, 'ajax');
     $('.thermostat.reset').click();
-    expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('http://127.0.0.1:9292/temperature');
-    expect($.ajax.calls.mostRecent().args[0]['data']).toEqual({current_temp: thermostat.defaultTemperature});
+    expect($.ajax.calls.mostRecent().args[0].url).toEqual('http://127.0.0.1:9292/temperature');
+    expect($.ajax.calls.mostRecent().args[0].data).toEqual({current_temp: thermostat.defaultTemperature});
   });
 });
 

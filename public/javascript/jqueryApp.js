@@ -14,7 +14,6 @@ $(document).ready(function() {
   var cityTemperature = function(cityName) {
     $.ajax({url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric',
       success: function(APIResponse) {
-        console.log(APIResponse);
         $('.city.temp').html(Math.round(APIResponse.main.temp));
         $('.city.name').html(APIResponse.name);
       }
