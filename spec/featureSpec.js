@@ -103,7 +103,6 @@ describe('Ajax', function() {
     var APIResponse = {'main': {'temp': 18}};
     $('.city.form').val('London');
     $('.city.form').trigger({type: 'keypress', which: 13});
-    console.log($.ajax.calls.mostRecent());
     $.ajax.calls.mostRecent().args[0].success(APIResponse);
     expect($.ajax).toHaveBeenCalled();
     expect('.city.temp').toContainText('18');
